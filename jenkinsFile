@@ -1,13 +1,21 @@
  node{
 	try {
 	    mail('Started', "Build has been Triggered.")
+                def downloadSpec = """{
+ 			"files": [
+  			{
+      				"pattern": "madhu-class/*",
+      				"target": "madhu-class/*"
+    			}
+ 		   ]
+	}"""
 		stage('Fetching Source code from GIT'){
 			 
 			url: 'https://github.com/madhu44445/madhu_class.git'
 		}
 		
 		stage('Running Test for server spec'){
-			sh 'ruby -S rspec web-activemq/active_mq_server_spec.rb'
+			sh 'ruby -S rspec madhu-class/web-activemq/active_mq_server_spec.rb'
 		}
 		stage('Success stage '){
 			sh 'echo  tested  some server spec stuff'

@@ -1,0 +1,36 @@
+ node{
+	try {
+	    mail('Started', "Build has been Triggered.")
+		stage('Fetching Source code from GIT'){
+			 
+			url: 'https://github.com/madhu44445/madhu_class.git'
+		}
+		
+		stage('Running Test for server spec'){
+			sh 'ruby -S rspec /root/active_mq_server_spec.rb'
+		}
+		stage('Success stage '){
+			sh 'echo  tested  some server spec stuff'
+		}stage('Publishing Reports'){
+		    publishHTML([allowMissing: true, 
+		    alwaysLinkToLastBuild: false, 
+		    keepAll: true, 
+		    reportDir: 'target/site/jacoco/', 
+		    reportFiles: 'index.html', 
+		    reportName: 'Code Coverage', 
+		    reportTitles: ''])
+		}
+		mail('Succes', "Build has been completed successfully.")
+	} catch (err) {
+		mail('Failed', "Build Failed. Error : ${err}")
+	}
+}
+
+def mail(status, desc){
+    emailext (
+        attachLog: true, 
+        body: "${desc}", 
+        subject: "Build Status : ${status}", 
+        to: 'akshay_goel@live.in'
+    )
+}

@@ -7,7 +7,7 @@
 		}
 		
 		stage('Running Test for server spec'){
-			sh 'ruby -S rspec /root/active_mq_server_spec.rb'
+			sh 'ruby -S rspec web-activemq/active_mq_server_spec.rb'
 		}
 		stage('Success stage '){
 			sh 'echo  tested  some server spec stuff'
@@ -31,6 +31,6 @@ def mail(status, desc){
         attachLog: true, 
         body: "${desc}", 
         subject: "Build Status : ${status}", 
-        to: 'akshay_goel@live.in'
+        to: 'madhu44445@gmail.com'
     )
 }

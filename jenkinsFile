@@ -15,7 +15,7 @@
 		}
 		
 		stage('Running Test for server spec'){
-			sh 'ruby -S ~/madhu_class/web-activemq/active_mq_server_spec.rb
+			sh 'ruby  ~/madhu_class/web-activemq/active_mq_server_spec.rb
 		}
 		stage('Success stage '){
 			sh 'echo  tested  some server spec stuff'

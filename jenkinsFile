@@ -11,6 +11,7 @@
 	}"""
 		stage('Fetching Source code from GIT'){
 			 deleteDir()
+			git config http.sslVerify "false"
 			url: 'https://github.com/madhu44445/madhu_class.git'
 		}
 		

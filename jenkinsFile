@@ -68,5 +68,4 @@
                     currentBuild.result = 'FAILURE'
                 }
             }
-    }
-    }
+    

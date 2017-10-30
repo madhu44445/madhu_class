@@ -1,22 +1,17 @@
- pipeline {
-        node("ActiveMQ node"){
-	try {
-	    mail('Started', "Build has been Triggered.")
-                def downloadSpec = """{
- 			"files": [
-  			{
-      				"pattern": "/root/amplience-ops-apps-92305eba2e68/work/ops-apps/terraform/web-activemq//*",
-      				"target": "/root/amplience-ops-apps-92305eba2e68/work/ops-apps/terraform/web-activemq //*"
-    			}
- 		   ]
-	}"""
-		stage('Fetching Source code from BitBucket'){
-			 deleteDir()
-			git config http.sslVerify "false"
-			url: 'https://github.com/madhu44445/madhu_class.git'
-		}
-
-// Mark the code build 'plan'....
+node {
+ 
+    // Mark the code checkout 'Checkout'....
+    stage 'Checkout'
+ 
+    // // Get some code from a GitHub repository
+    git url: ''https://github.com/madhu44445/madhu_class.git'
+ 
+    // Get the Terraform tool.
+    def tfHome = tool name: 'Terraform', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
+    env.PATH = "${tfHome}:${env.PATH}"
+    wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm']) {
+ 
+            // Mark the code build 'plan'....
             stage name: 'Plan', concurrency: 1
             // Output Terraform version
             sh "terraform --version"
@@ -68,4 +63,5 @@
                     currentBuild.result = 'FAILURE'
                 }
             }
-    
+    }
+}
